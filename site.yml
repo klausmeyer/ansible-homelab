@@ -1,0 +1,17 @@
+- name: baseline
+  hosts: all
+  become: true
+  roles:
+    - baseline
+
+- name: Raspberries
+  hosts: raspberries
+  become: true
+  roles:
+    - debian
+
+- name: Docker
+  hosts: docker
+  become: true
+  roles:
+    - docker

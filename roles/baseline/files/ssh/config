@@ -22,8 +22,8 @@ Host km-pi4b-4
   HostName km-pi4b-4.fritz.box
   User pi
 
-Host km-pi4b-8gb-e97bcc2c
-  HostName km-pi4b-8gb-e97bcc2c.fritz.box
+Host km-pi4b-5
+  HostName km-pi4b-5.fritz.box
   User pi
 
 Host km-pve-1

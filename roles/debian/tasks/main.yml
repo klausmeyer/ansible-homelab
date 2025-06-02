@@ -10,7 +10,6 @@
     - gnupg
     - htop
     - ncdu
-    - software-properties-common
     - sudo
     - tig
     - tmux

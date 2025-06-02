@@ -1,0 +1,12 @@
+- name: Baseline
+  hosts: localhost
+  connection: local
+  roles:
+    - baseline
+
+- name: Debian
+  hosts: localhost
+  connection: local
+  become: true
+  roles:
+    - debian

@@ -9,5 +9,5 @@ ansible-playbook -i hosts.yml site.yml
 Installing updates:
 
 ```
-ansible -i hosts.yml raspberries -m apt -a "upgrade=yes update_cache=yes" --become
+ansible -i hosts.yml debian -m apt -a "upgrade=yes update_cache=yes" --become
 ```

@@ -1,0 +1,39 @@
+Host km-pi0w-1
+  HostName km-pi0w-1.fritz.box
+  User pi
+
+Host km-pi3b-1
+  HostName km-pi3b-1.fritz.box
+  User pi
+
+Host km-pi4b-1
+  HostName km-pi4b-1.fritz.box
+  User pi
+
+Host km-pi4b-2
+  HostName km-pi4b-2.fritz.box
+  User pi
+
+Host km-pi4b-3
+  HostName km-pi4b-3.fritz.box
+  User pi
+
+Host km-pi4b-4
+  HostName km-pi4b-4.fritz.box
+  User pi
+
+Host km-pi4b-8gb-e97bcc2c
+  HostName km-pi4b-8gb-e97bcc2c.fritz.box
+  User pi
+
+Host km-pve-1
+  HostName km-pve-1.fritz.box
+  User root
+
+Host *
+  StrictHostKeyChecking=accept-new
+
+  # This is a MacOS only option that looks for passwords for the keys
+  # in the keychain.  Ignore if it is an unknown option.
+  IgnoreUnknown UseKeyChain
+  UseKeychain yes

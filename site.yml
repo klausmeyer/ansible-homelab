@@ -1,6 +1,5 @@
 - name: baseline
   hosts: all
-  become: true
   roles:
     - baseline
 

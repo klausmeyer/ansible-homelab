@@ -1,3 +1,11 @@
+- name: Update SSH config
+  ansible.builtin.copy:
+    src: ssh/config
+    dest: "{{ ansible_user_dir }}/.ssh/config"
+    owner: "{{ ansible_user }}"
+    group: "{{ ansible_user }}"
+    mode: "0600"
+
 - name: Set authorized keys
   ansible.posix.authorized_key:
     user: "{{ ansible_user }}"

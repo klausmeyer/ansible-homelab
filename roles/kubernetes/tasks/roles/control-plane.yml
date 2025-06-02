@@ -1,0 +1,34 @@
+- name: Init cluster
+  ansible.builtin.shell: |
+    kubeadm init --cri-socket=/var/run/containerd/containerd.sock --pod-network-cidr=10.244.0.0/16 2>&1 | tee /home/{{ ansible_ssh_user }}/k8s-init.log
+  args:
+    creates: "/home/{{ ansible_ssh_user }}/k8s-init.log"
+
+- name: Create config dir
+  ansible.builtin.file:
+    path: "/home/{{ ansible_ssh_user }}/.kube"
+    state: directory
+    owner: "{{ ansible_ssh_user }}"
+    group: "{{ ansible_ssh_user }}"
+
+- name: Copy config file
+  ansible.builtin.copy:
+    remote_src: true
+    src: /etc/kubernetes/admin.conf
+    dest: "/home/{{ ansible_ssh_user }}/.kube/config"
+    owner: "{{ ansible_ssh_user }}"
+    group: "{{ ansible_ssh_user }}"
+
+- name: Install CNI plugin
+  ansible.builtin.shell: |
+    kubectl apply -f https://raw.githubusercontent.com/coreos/flannel/master/Documentation/kube-flannel.yml
+    touch .kube-flannel-installed
+  args:
+    creates: "/home/{{ ansible_ssh_user }}/.kube-flannel-installed"
+
+- name: Untaint master
+  ansible.builtin.shell: |
+    kubectl taint nodes --all node-role.kubernetes.io/control-plane:NoSchedule-
+    touch .kube-master-untaint
+  args:
+    creates: "/home/{{ ansible_ssh_user }}/.kube-master-untaint"

@@ -1,0 +1,42 @@
+- name: Disable swap
+  ansible.builtin.shell: |
+    dphys-swapfile swapoff
+    dphys-swapfile uninstall
+    systemctl disable dphys-swapfile.service
+  args:
+    removes: /var/swap
+
+- name: Configure iptables for k8s
+  ansible.builtin.copy:
+    dest: /etc/sysctl.d/k8s.conf
+    content: |
+      net.bridge.bridge-nf-call-iptables  = 1
+      net.bridge.bridge-nf-call-ip6tables = 1
+      net.ipv4.ip_forward                 = 1
+  register: sysctl
+
+- name: Load sysctl config
+  ansible.builtin.shell: sysctl --system
+  when: sysctl.changed
+
+- name: Add kernel modules
+  ansible.builtin.copy:
+    dest: /etc/modules-load.d/k8s.conf
+    content: |
+      overlay
+      br_netfilter
+
+- name: Add cgroup options to boot cmdline
+  ansible.builtin.replace:
+    path: /boot/cmdline.txt
+    regexp: '^([\w](?!.*\b{{ item }}\b).*)$'
+    replace: '\1 {{ item }}'
+  with_items:
+    - "cgroup_enable=cpuset"
+    - "cgroup_memory=1"
+    - "cgroup_enable=memory"
+  register: bootconfig
+
+- name: Reboot when bootconfig was changed
+  ansible.builtin.reboot:
+  when: bootconfig.changed

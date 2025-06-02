@@ -1,0 +1,20 @@
+- name: Install package
+  apt:
+    name: haproxy
+
+- name: Create config file
+  ansible.builtin.copy:
+    src: haproxy.cfg
+    dest: /etc/haproxy/haproxy.cfg
+  register: haproxy_config
+
+- name: Restart haproxy
+  ansible.builtin.systemd:
+    name: haproxy
+    state: restarted
+  when: haproxy_config.changed
+
+- name: Enable haproxy
+  ansible.builtin.systemd:
+    name: haproxy
+    enabled: true

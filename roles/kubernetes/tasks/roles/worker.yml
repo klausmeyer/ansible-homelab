@@ -1,0 +1,13 @@
+- name: Find join command
+  shell: |
+    kubeadm token create --print-join-command
+  run_once: true
+  delegate_to: "{{ (hostvars.values() | list | selectattr('k8s_node_type', 'defined') | selectattr('k8s_node_type', 'equalto', 'control-plane') | first).inventory_hostname }}"
+  register: join_command
+  changed_when: false
+
+- name: Execute join command
+  shell: |
+    {{ join_command.stdout }} > /home/{{ ansible_ssh_user }}/k8s-join.log 2>&1
+  args:
+    creates: "/home/{{ ansible_ssh_user }}/k8s-join.log"

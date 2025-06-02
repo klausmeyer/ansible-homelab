@@ -14,3 +14,11 @@
   become: true
   roles:
     - docker
+
+- name: Kubernetes
+  hosts: kubernetes
+  become: true
+  roles:
+    - containerd
+    - kubernetes
+    - haproxy

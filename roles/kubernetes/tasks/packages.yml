@@ -1,0 +1,31 @@
+- name: Make sure keyrings folder exists
+  ansible.builtin.file:
+    path: /etc/apt/keyrings
+    state: directory
+
+- name: Add GPG key
+  ansible.builtin.get_url:
+    url: https://pkgs.k8s.io/core:/stable:/v1.33/deb/Release.key
+    dest: /etc/apt/keyrings/kubernetes-apt-keyring.gpg
+
+- name: Add apt repository
+  apt_repository:
+    repo: deb [signed-by=/etc/apt/keyrings/kubernetes-apt-keyring.gpg] https://pkgs.k8s.io/core:/stable:/v1.33/deb/ /
+    state: present
+    filename: kubernetes
+
+- name: Install packages
+  apt:
+    name:
+      - kubelet=1.33.1-1.1
+      - kubeadm=1.33.1-1.1
+      - kubectl=1.33.1-1.1
+
+- name: Pin packages
+  ansible.builtin.dpkg_selections:
+    name: "{{item}}"
+    selection: hold
+  with_items:
+    - kubelet
+    - kubeadm
+    - kubectl

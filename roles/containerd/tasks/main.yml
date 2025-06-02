@@ -1,0 +1,58 @@
+- name: Install needed packages
+  apt:
+    name:
+      - apt-transport-https
+      - ca-certificates
+      - curl
+      - gnupg2
+      - software-properties-common
+
+- name: Add docker GPG key
+  apt_key:
+    url: https://download.docker.com/linux/debian/gpg
+    state: present
+
+- name: Add docker apt repository
+  apt_repository:
+    repo: "deb https://download.docker.com/linux/debian {{ ansible_distribution_release }} stable"
+    state: present
+    filename: docker
+
+- name: Install containerd package
+  apt:
+    name: containerd.io
+    state: present
+
+- name: Pin containerd package
+  dpkg_selections:
+    name: containerd.io
+    selection: hold
+
+- name: Create config dir
+  ansible.builtin.file:
+    path: /etc/containerd
+    state: directory
+
+- name: Update config file
+  ansible.builtin.copy:
+    src: config.toml
+    dest: /etc/containerd/config.toml
+  register: containerd_config
+
+- name: Restart containerd
+  ansible.builtin.systemd:
+    name: containerd
+    state: restarted
+  when: containerd_config.changed
+
+- name: Host entry to use local ip for registry calls
+  ansible.builtin.lineinfile:
+    path: /etc/hosts
+    line: 127.0.0.1 registry.home.klaus-meyer.net
+
+- name: Point crictl to containerd socket
+  ansible.builtin.lineinfile:
+    path: /etc/crictl.yaml
+    regexp: "^runtime-endpoint:"
+    line: "runtime-endpoint: unix:///run/containerd/containerd.sock"
+    create: true

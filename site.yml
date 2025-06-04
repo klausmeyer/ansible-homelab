@@ -3,8 +3,8 @@
   roles:
     - baseline
 
-- name: Raspberries
-  hosts: raspberries
+- name: Debian
+  hosts: debian
   become: true
   roles:
     - debian

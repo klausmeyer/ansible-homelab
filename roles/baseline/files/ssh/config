@@ -1,32 +1,32 @@
-Host km-pi0w-1
+Host km-pi0w-1 km-pi0w-1.fritz.box
   HostName km-pi0w-1.fritz.box
   User pi
 
-Host km-pi3b-1
+Host km-pi3b-1 km-pi3b-1.fritz.box
   HostName km-pi3b-1.fritz.box
   User pi
 
-Host km-pi4b-1
+Host km-pi4b-1 km-pi4b-1.fritz.box
   HostName km-pi4b-1.fritz.box
   User pi
 
-Host km-pi4b-2
+Host km-pi4b-2 km-pi4b-2.fritz.box
   HostName km-pi4b-2.fritz.box
   User pi
 
-Host km-pi4b-3
+Host km-pi4b-3 km-pi4b-3.fritz.box
   HostName km-pi4b-3.fritz.box
   User pi
 
-Host km-pi4b-4
+Host km-pi4b-4 km-pi4b-4.fritz.box
   HostName km-pi4b-4.fritz.box
   User pi
 
-Host km-pi4b-5
+Host km-pi4b-5 km-pi4b-5.fritz.box
   HostName km-pi4b-5.fritz.box
   User pi
 
-Host km-pve-1
+Host km-pve-1 km-pve-1.fritz.box
   HostName km-pve-1.fritz.box
   User root
 

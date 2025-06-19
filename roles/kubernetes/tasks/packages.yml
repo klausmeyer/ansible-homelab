@@ -17,9 +17,9 @@
 - name: Install packages
   apt:
     name:
-      - kubelet=1.33.1-1.1
-      - kubeadm=1.33.1-1.1
-      - kubectl=1.33.1-1.1
+      - kubelet=1.33.2-1.1
+      - kubeadm=1.33.2-1.1
+      - kubectl=1.33.2-1.1
 
 - name: Pin packages
   ansible.builtin.dpkg_selections:

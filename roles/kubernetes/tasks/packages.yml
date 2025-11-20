@@ -22,9 +22,12 @@
     - kubeadm
     - kubectl
 
-- name: Install packages for longhorn
+- name: Install additional packages
   apt:
     name:
+      # Monitoring
+      - prometheus-node-exporter
+      # Longhorn
       - open-iscsi
       - nfs-common
       - dmsetup

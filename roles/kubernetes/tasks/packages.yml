@@ -3,8 +3,7 @@
     name: kubernetes
     types: deb
     uris: https://pkgs.k8s.io/core:/stable:/v1.34/deb/
-    suites: '{{ ansible_facts["distribution_release"] }}'
-    components: stable
+    suites: /
     signed_by: https://pkgs.k8s.io/core:/stable:/v1.34/deb/Release.key
 
 - name: Install packages for k8s

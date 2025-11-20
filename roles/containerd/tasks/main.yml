@@ -1,28 +1,27 @@
-- name: Install needed packages
+- name: Install required packages
   apt:
     name:
       - apt-transport-https
       - ca-certificates
       - curl
       - gnupg2
+      - python3-debian
 
-- name: Add docker GPG key
-  apt_key:
-    url: https://download.docker.com/linux/debian/gpg
-    state: present
+- name: Add download.docker.com apt repo
+  deb822_repository:
+    name: docker
+    types: deb
+    uris: https://download.docker.com/linux/debian
+    suites: '{{ ansible_facts["distribution_release"] }}'
+    components: stable
+    signed_by: https://download.docker.com/linux/debian/gpg
 
-- name: Add docker apt repository
-  apt_repository:
-    repo: "deb https://download.docker.com/linux/debian {{ ansible_distribution_release }} stable"
-    state: present
-    filename: docker
-
-- name: Install containerd package
+- name: Install containerd.io package
   apt:
-    name: containerd.io
+    name: containerd.io=2.1.5-1~debian.13~trixie
     state: present
 
-- name: Pin containerd package
+- name: Pin containerd.io package
   dpkg_selections:
     name: containerd.io
     selection: hold

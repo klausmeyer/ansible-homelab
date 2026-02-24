@@ -1,0 +1,18 @@
+- name: Setup clean resolve.conf
+  ansible.builtin.copy:
+    dest: /etc/kubernetes/resolv-clean.conf
+    content: |
+      nameserver 10.96.0.10
+      options ndots:5
+
+- name: Change kubelet config
+  ansible.builtin.lineinfile:
+    path: /var/lib/kubelet/config.yaml
+    line: "resolvConf: /etc/kubernetes/resolv-clean.conf"
+  register: kubelet_config
+
+- name: Restart kubelet service
+  ansible.builtin.service:
+    name: kubelet
+    state: restarted
+  when: kubelet_config.changed

@@ -13,6 +13,7 @@
     state: present
   with_items:
     - ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAII68imrL9Yv9RX/wlLnk/35uozlVa+3RdsSa+dBqWi3G meyer@saria
+    - ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAICR6P9E8DN6TgKiPLWjSMgz/Sa/aJGCGrIyPthC75ZQQ meyer@km-air
     - ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIEyneA76T/kZjhSZ7nVSnd0CHwggZHz7u1tf4cLcweqX meyer@km-mini
     - ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIIES1+n0IGSCHtygEMjSwci824zLfWEwlAUKYcpJuCe+ meyer@km-t450
     - ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIO7pDjFUZCIXL8DdQ78HbKWnzwVwlhrTneksl3avgsdZ pi@km-pi4b-5

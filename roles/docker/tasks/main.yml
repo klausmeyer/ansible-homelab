@@ -1,13 +1,11 @@
-- name: Add docker GPG key
-  apt_key:
-    url: https://download.docker.com/linux/debian/gpg
-    state: present
-
-- name: Add docker apt repository
-  apt_repository:
-    repo: "deb [arch={{ 'arm64' if ansible_facts.architecture == 'aarch64' else 'amd64' }} signed-by=/etc/apt/keyrings/docker.asc] https://download.docker.com/linux/debian {{ ansible_distribution_release }} stable"
-    state: present
-    filename: docker
+- name: Add download.docker.com apt repo
+  deb822_repository:
+    name: docker
+    types: deb
+    uris: https://download.docker.com/linux/debian
+    suites: '{{ ansible_facts["distribution_release"] }}'
+    components: stable
+    signed_by: https://download.docker.com/linux/debian/gpg
 
 - name: Install docker-ce package
   apt:

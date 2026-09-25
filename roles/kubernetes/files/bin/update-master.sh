@@ -2,7 +2,7 @@
 
 set -e
 
-version="1.34.2"
+version="1.37.1"
 
 apt-mark unhold kubeadm
 apt-get update
